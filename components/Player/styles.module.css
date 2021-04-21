@@ -1,0 +1,96 @@
+.playerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 100vh;
+    width: 26.5rem;
+    padding: 3rem 4rem;
+
+    background-color: var(--purple-500);
+    color: var(--white);
+}
+
+.playerContainer header {
+    display: flex;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.playerContainer strong {
+    font-family: Lexend, sans-serif;
+    font-weight: 600;
+}
+
+.playerContainer footer { align-self: stretch; }
+.playerContainer footer.empty { opacity: 0.5; }
+
+.playerContainer .emptyPlayer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 20rem;
+    width: 100%;
+
+    border: 0.2rem dashed var(--purple-300);
+    border-radius: 1.5rem;
+
+    padding: 4rem;
+    text-align: center;
+
+    background-color: rgba(145, 100, 250. 0.8);
+    background: linear-gradient(143.8deg, #9164facc 0%, transparent 100%);
+}
+
+.playerContainer .progress {
+    display: flex;
+    align-items: center;
+
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.playerContainer .progress span {
+    display: inline-block;
+    width: 4rem;
+    text-align: center;
+}
+
+.playerContainer .progress .slider {
+    flex: 1;
+}
+
+.playerContainer .progress .slider .emptySlider {
+    height: 4px;
+    width: 100%;
+
+    background-color: var(--purple-300);
+    border-radius: 2px;
+}
+
+.playerContainer .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 2.5rem;
+    gap: 1.5rem;
+}
+
+.playerContainer .buttons button {
+    font-size: 0;
+
+    background-color: transparent;
+    border: 0;
+}
+
+.playerContainer .buttons button.playButton {
+    height: 4rem;
+    width: 4rem;
+
+    border-radius: 1rem;
+    background-color: var(--purple-400);
+}
