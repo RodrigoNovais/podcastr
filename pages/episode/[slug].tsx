@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -23,6 +24,8 @@ const EpisodePage: NextPage<EpisodePageProps> = ({ episode }) => {
 
     return (
         <div className={styles.episode}>
+            <Head>{episode.title} | Podcastr</Head>
+
             <div>
                 <div className={styles.thumbnailContainer}>
                     <Link href="/">

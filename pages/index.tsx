@@ -2,6 +2,7 @@
 import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
 
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -27,6 +28,8 @@ const HomePage: NextPage<HomePageProps> = ({ allEpisodes, latestEpisodes }) => {
 
     return (
         <div className={styles.homepage}>
+            <Head>Podcastr</Head>
+
             <section className={styles.latestEpisodes}>
                 <h2>Últimos Lançamentos</h2>
 
