@@ -25,7 +25,29 @@
 }
 
 .playerContainer footer { align-self: stretch; }
-.playerContainer footer.empty { opacity: 0.5; }
+.playerContainer footer.empty .progress { opacity: 0.6; }
+
+.playerContainer .currentEpisode {
+    text-align: center;
+}
+
+.playerContainer .currentEpisode img {
+    border-radius: 1.5rem;
+}
+
+.playerContainer .currentEpisode strong {
+    display: block;
+    margin-top: 2rem;
+    font: 600 1.25rem Lexend, sans-serif;
+    line-height: 1.75;
+}
+
+.playerContainer .currentEpisode span {
+    display: block;
+    margin-top: 1rem;
+    opacity: 0.6;
+    line-height: 1.5;
+}
 
 .playerContainer .emptyPlayer {
     display: flex;
@@ -54,6 +76,7 @@
 }
 
 .playerContainer .progress span {
+    font-variant-numeric: tabular-nums;
     display: inline-block;
     width: 4rem;
     text-align: center;
@@ -85,6 +108,25 @@
 
     background-color: transparent;
     border: 0;
+
+    transition: filter 0.2s;
+}
+
+.playerContainer .buttons button:disabled {
+    cursor: default;
+    opacity: 0.6;
+}
+
+.playerContainer .buttons button:not(:disabled):hover {
+    filter: brightness(0.7);
+}
+
+.playerContainer .buttons button.isActive {
+    filter: invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
+}
+
+.playerContainer .buttons button.isActive:hover {
+    filter: invert(0.35) sepia(1) saturate(3) hue-rotate(100deg) brightness(0.7);
 }
 
 .playerContainer .buttons button.playButton {
@@ -93,4 +135,8 @@
 
     border-radius: 1rem;
     background-color: var(--purple-400);
+}
+
+.playerContainer .buttons button.playButton:not(:disabled):hover {
+    filter: brightness(0.95);
 }

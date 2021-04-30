@@ -10,6 +10,7 @@ import { Episode } from '../database/config';
 import { formatStringDate } from '../utils/format-string-date';
 import { convertDurationToTimeString } from '../utils/convert-duration-to-time-string';
 
+import { usePlayer } from '../contexts/PlayerContext';
 import { server } from '../config';
 
 import styles from '../styles/home.module.css';
@@ -20,13 +21,17 @@ export type HomePageProps = {
 };
 
 const HomePage: NextPage<HomePageProps> = ({ allEpisodes, latestEpisodes }) => {
+    const { playList } = usePlayer();
+
+    const episodesList = [...latestEpisodes, ...allEpisodes];
+
     return (
         <div className={styles.homepage}>
             <section className={styles.latestEpisodes}>
                 <h2>Últimos Lançamentos</h2>
 
                 <ul>
-                    {latestEpisodes.map(episode => (
+                    {latestEpisodes.map((episode, index) => (
                         <li key={episode.id}>
                             <Image
                                 height={192}
@@ -41,10 +46,10 @@ const HomePage: NextPage<HomePageProps> = ({ allEpisodes, latestEpisodes }) => {
                                 </Link>
                                 <p>{episode.members}</p>
                                 <span>{episode.published_at}</span>
-                                <span>{episode.file.duration}</span>
+                                <span>{convertDurationToTimeString(episode.file.duration)}</span>
                             </div>
 
-                            <button type="button">
+                            <button type="button" onClick={() => { playList(episodesList, index); }}>
                                 <img src="/play-green.svg" alt="Tocar episódio" />
                             </button>
                         </li>
@@ -68,7 +73,7 @@ const HomePage: NextPage<HomePageProps> = ({ allEpisodes, latestEpisodes }) => {
                     </thead>
 
                     <tbody>
-                        {allEpisodes.map(episode => (
+                        {allEpisodes.map((episode, index) => (
                             <tr key={episode.id}>
                                 <td style={{ width: 72 }}>
                                     <Image width={120} height={120} src={episode.thumbnail} alt={episode.title} objectFit="cover" />
@@ -80,9 +85,9 @@ const HomePage: NextPage<HomePageProps> = ({ allEpisodes, latestEpisodes }) => {
                                 </td>
                                 <td>{episode.members}</td>
                                 <td style={{ width: 100 }}>{episode.published_at}</td>
-                                <td>{episode.file.duration}</td>
+                                <td>{convertDurationToTimeString(episode.file.duration)}</td>
                                 <td>
-                                    <button type="button">
+                                    <button type="button" onClick={() => { playList(episodesList, index + latestEpisodes.length); }}>
                                         <img src="/play-green.svg" alt="Tocar episódio" />
                                     </button>
                                 </td>
@@ -103,11 +108,6 @@ export const getStaticProps: GetStaticProps = async() => {
         return {
             ...episode,
             published_at: formatStringDate(episode.published_at, 'd MMM yy'),
-            file:         {
-                url:      episode.file.url,
-                type:     episode.file.type,
-                duration: convertDurationToTimeString(episode.file.duration),
-            },
         };
     });
 

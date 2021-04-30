@@ -9,6 +9,7 @@ import { Episode } from '../../database/config';
 import { formatStringDate } from '../../utils/format-string-date';
 import { convertDurationToTimeString } from '../../utils/convert-duration-to-time-string';
 
+import { usePlayer } from '../../contexts/PlayerContext';
 import { server } from '../../config';
 
 import styles from '../../styles/episodes.module.css';
@@ -18,6 +19,8 @@ export type EpisodePageProps = {
 };
 
 const EpisodePage: NextPage<EpisodePageProps> = ({ episode }) => {
+    const { play } = usePlayer();
+
     return (
         <div className={styles.episode}>
             <div>
@@ -34,7 +37,7 @@ const EpisodePage: NextPage<EpisodePageProps> = ({ episode }) => {
                         src={episode.thumbnail}
                         objectFit="cover" />
 
-                    <button type="button">
+                    <button type="button" onClick={() => { play(episode); }}>
                         <img src="/play.svg" alt="Tocar Episódio" />
                     </button>
                 </div>
@@ -45,7 +48,7 @@ const EpisodePage: NextPage<EpisodePageProps> = ({ episode }) => {
                     <div>
                         <span>{episode.members}</span>
                         <span>{episode.published_at}</span>
-                        <span>{episode.file.duration}</span>
+                        <span>{convertDurationToTimeString(episode.file.duration)}</span>
                     </div>
                 </header>
 
@@ -77,11 +80,6 @@ export const getStaticProps: GetStaticProps = async({ params }) => {
     const episode = {
         ...data,
         published_at: formatStringDate(data.published_at, 'd MMM yy'),
-        file:         {
-            url:      data.file.url,
-            type:     data.file.type,
-            duration: convertDurationToTimeString(data.file.duration),
-        },
     };
 
     return {
